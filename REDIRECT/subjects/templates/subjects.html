@@ -1,0 +1,21 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+    Занятия
+{% endblock title %}
+    
+{% block content %}
+     {% for class in classes %}
+        <h3>{{ class.name }} {{ class.teacher }} </h3>
+        
+        <a class="btn btn-primary" href="{{ class.get_absolute_url }}"> Перейти </a>    
+        {% comment %} <a class="btn btn-success" href="{% url 'subjects:class_view' class.pk %}"> Перейти </a>     {% endcomment %}
+        <a class="btn btn-danger" href="{% url 'classes:class_delete' class.pk %}"> Удалить </a>    
+
+            {% for teacher in teachers %}
+                <p><a class="btn btn-success" href="{% url 'classes:change_teacher' class.pk teacher.pk %}"> Поменять на {{  teacher.last_name }} </a></p>
+            {% endfor %}
+
+     {% endfor %}
+    
+{% endblock content %}

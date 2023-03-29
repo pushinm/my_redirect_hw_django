@@ -1,0 +1,1 @@
+[{"model": "subjects.subject", "pk": 2, "fields": {"name": "Физика"}}, {"model": "subjects.subject", "pk": 3, "fields": {"name": "Философия"}}, {"model": "subjects.subject", "pk": 4, "fields": {"name": "Высшая математика"}}, {"model": "subjects.subject", "pk": 5, "fields": {"name": "Информационные технологии"}}]

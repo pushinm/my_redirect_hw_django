@@ -1,0 +1,36 @@
+{% extends "layout/base.html" %} 
+{% block content %}
+<div class="container-xxl py-5 wow fadeInUp mb-5 mt-5 pl-10 pr-10"  data-wow-delay="0.1s">
+  {% if form.errors %}
+  <p>Логин или пароль не верны, попроуйте заново</p>
+  {% endif %} {% if next %} {% if user.is_authenticated %}
+  <p>
+    Вам не разрешено просматривать данную страницу. Для простмотра страницы,
+    зарегистрируюйтесь.
+  </p>
+  {% else %}
+  <p>Пожалуйста войдите, чтобы просмотреть содержимое страницы.</p>
+  {% endif %} {% endif %}
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+
+    <input class="btn btn-secondary" type="submit" value="Вход" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+</div>
+{% endblock %}

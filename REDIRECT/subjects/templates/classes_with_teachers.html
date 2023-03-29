@@ -1,0 +1,24 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+    Занятия
+{% endblock title %}
+    
+{% block content %}
+     {% for class in classes %}
+        <h3>{{ class.name }}</h3>
+        <h4>Преподаватели: </h4>
+
+        {% for teacher in class.teacher.all %}
+        <p>
+            {{ teacher.first_name }} {{ teacher.last_name }}
+        </p>
+        {% endfor %}
+        <a class="btn btn-primary" href="{% url 'subjects:show_classes_teacher' class.pk %}"> Перейти </a>
+        {% comment %} <a class="btn btn-success" href="{% url 'subjects:class_view' class.pk %}"> Перейти </a>     {% endcomment %}
+        <a class="btn btn-danger" href="{% url 'classes:class_delete' class.pk %}"> Удалить </a>    
+
+
+     {% endfor %}
+    
+{% endblock content %}

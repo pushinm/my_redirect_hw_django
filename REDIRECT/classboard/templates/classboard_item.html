@@ -1,0 +1,34 @@
+{% extends 'layout/base.html' %}
+
+
+{% block title %}
+    Предмет
+{% endblock title %}
+
+
+{% block content %}
+
+    <div class="col-12">
+        <p>День недели: {{ classboard_current.class_day }} </p>
+        <p>Пара: {{ classboard_current.class_pair }} </p>
+        <h3>Предмет: {{ classboard_current.subject_name }}</h3>
+        <h4>Группа: {{ classboard_current.group }}</h4>
+        <p>Преподаватель(ли):
+            {% for item_teacher in classboard_current.teacher.all %}
+                {{ item_teacher }}
+            {% endfor %}
+        <p><strong><u>Студенты:</u></strong>
+            {% for item_student in students %}
+                <p>{{ item_student }}</p>
+            {% endfor %}
+        </p>
+
+
+        {#            <a class="btn btn-primary" href="{% url 'classboard_view' item.pk %}"> Перейти </a>#}
+    </div>
+
+    <p>
+        <a class="btn btn-primary" href="{% url 'classboard_view' %}"> Обратно </a>
+    </p>
+
+{% endblock content %}

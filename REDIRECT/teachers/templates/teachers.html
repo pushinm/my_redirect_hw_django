@@ -1,0 +1,9 @@
+{% extends 'layout/base.html' %}
+{% block title %}Учителя{% endblock title %}
+
+{% block content %}
+    {% for teacher in  teachers %}
+        <h2>{{ teacher.first_name }} {{ teacher.last_name }}</h2>
+        <a class="btn btn-primary" href="{{ teacher.get_absolute_url }}"> Перейти </a>
+    {% endfor %}
+{% endblock content %}

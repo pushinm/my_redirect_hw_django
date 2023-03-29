@@ -1,0 +1,14 @@
+{% extends 'layout/base.html' %}
+{% block title %}Учитель{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="col-12">
+            <h2>{{ current_teacher.first_name }} {{ current_teacher.last_name }}</h2>
+            <p>{{ current_teacher.birth_day|date:"d M y"}}</p>
+            <p>{{ current_teacher.email }}</p>
+            <p>{{ current_teacher.phone }}</p>
+            <p><a class="btn btn-primary" href="{% url 'teachers:view_teachers' %}"> Обратно </a></p>
+        </div>
+    </div>
+{% endblock content %}

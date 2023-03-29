@@ -1,0 +1,60 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block title %}
+    Студет
+{% endblock title %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row-fluid">
+        <div class="col-12 text-center">
+    <table >
+        <tr>
+            <td colspan="3">
+                {% if student.image %}
+                    <img class="img-fluid" src="{{ student.image.url }}" alt="" width="400">
+                {% else %}
+                    <img class="img-fluid" src="{% static 'img/about.jpg' %}" alt="" width="400">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="text-center">{{ student.first_name }} {{ student.last_name }} </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ student.email }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ student.phone }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ student.group }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="btn btn-primary" href="{% url 'students_view' %}"> Обратно </a>
+            </td>
+
+            <td>
+                <a class="btn btn-info" href="{% url 'student_update' student.pk %}"> Изменить </a>
+            </td>  
+
+            <td>
+                <a class="btn btn-danger" href="{% url 'student_delete' student.pk %}"> Удалить </a>
+            </td>
+        </tr>
+    </table>
+    </div>
+    </div>
+</div>
+{% endblock content %}

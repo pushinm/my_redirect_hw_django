@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+    Занятие с учителем
+{% endblock title %}
+    
+{% block content %}
+
+        <h3>{{ class.name }}</h3>
+        <h4>Преподаватели: </h4>
+        {% for item in teacher_first_name %}
+
+        <p>
+            {{ item.teacher__first_name }} {{ item.teacher__last_name }}
+        </p>
+        {% endfor %}
+
+        <a class="btn btn-primary" href="{% url 'subjects:show_classes_teacher' %}"> Перейти </a>
+        {% comment %} <a class="btn btn-success" href="{% url 'subjects:class_view' class.pk %}"> Перейти </a>     {% endcomment %}
+
+    
+{% endblock content %}

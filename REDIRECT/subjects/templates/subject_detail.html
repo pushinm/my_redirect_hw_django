@@ -1,0 +1,12 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+    {{ class.name }}
+{% endblock title %}
+    
+{% block content %}
+    <h3>{{ class.name }}</h3>
+    {{ class.teacher.name }}
+    <a class="btn btn-info" href="{% url 'classes:class_view' %}">Обратно</a>
+{% endblock content %}
+    

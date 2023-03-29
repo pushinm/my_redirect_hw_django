@@ -1,0 +1,33 @@
+{% extends 'layout/base.html' %} 
+{% block title %} Отзывы {% endblock title %}
+{% block content %}
+<table class="mb-3 mt-3 table table-info table-striped">
+  <thead>
+    <th>Отзыв</th>
+    <th>Автор</th>
+    <th>Активен</th>
+    <th>Дата создания</th>
+    <th>Дата изменения</th>
+  </thead>
+  <tbody>
+    {% for testimonial_item in testimonials %}
+    <tr>
+      <td>
+        <a
+          href="{% url 'testimonials:testimonials_update' testimonial_item.pk %}"
+          >{{ testimonial_item.title }}</a
+        >
+      </td>
+      <td>
+        {{ testimonial_item.first_name }} {{ testimonial_item.last_name }}
+      </td>
+      <td>{{ testimonial_item.active }}</td>
+      <td>{{ testimonial_item.create_at }}</td>
+      <td>{{ testimonial_item.update_at }}</td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

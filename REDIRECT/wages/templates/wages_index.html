@@ -1,0 +1,115 @@
+{% extends 'layout/base.html' %}
+
+
+{% block title %}
+    Заработная плата преподавателей
+{% endblock title %}
+    
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">{{ header.teacher_title }}</th>
+                <th scope="col">{{ header.salary_title }}</th>
+                <th scope="col">{{ header.tax_title }}</th>
+                <th scope="col">{{ header.deductions_title }}</th>
+                <th scope="col">{{ header.alimony_title }}</th>
+                <th scope="col">{{ header.net_title }}</th>
+                <th scope="col">{{ header.go_to }}</th>
+                <th scope="col">{{ header.re_calculate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for teacher_item in teacher %}
+                <tr>
+                    <td>
+                        {{ teacher_item.teacher }}
+                    </td>
+                    <td>
+                        {{ teacher_item.salary }}
+                    </td>
+                    <td>
+                        {{ teacher_item.tax }}
+                    </td>
+                    <td>
+                        {{ teacher_item.deductions }}
+                    </td>
+                    <td>
+                        {{ teacher_item.alimony }}
+                    </td>
+                    <td>
+                        {{ teacher_item.net }}
+                    </td>
+                    <td>
+                        <a class='btn btn-primary' href="{% url 'wages:show_teachers_grid' teacher_item.pk %}"> Перейти </a>
+                    </td>
+                    <td>
+                        <a class='btn btn-success' href="{% url 'wages:wage_recalculate' teacher_item.pk %}"> Пересчитать </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>
+                    Всего: {{ totals.pk__count}}
+                </td>
+                <td>
+                    {{ totals.salary__sum|floatformat:2 }}
+                </td>
+                <td>
+                </td>
+                <td>
+                    {{ totals.deductions__sum|floatformat:2 }}
+                </td>
+                <td>
+                </td>
+                <td>
+                    {{ totals.net__sum|floatformat:2 }}
+                </td>
+                <td>
+                    {% comment %} <a class='btn btn-primary' href="{% url 'wages:show_teachers_grid' teacher_item.pk %}"> Перейти </a> {% endcomment %}
+                </td>
+                <td>
+                    {% comment %} <a class='btn btn-success' href="{% url 'wages:wage_recalculate' teacher_item.pk %}"> Пересчитать </a> {% endcomment %}
+                </td>
+            </tr>
+                {% for annotate in annotates %}
+                    {% if annotate.annotate_pk %}
+                        <tr>
+                            <td>
+                                {{ annotate.annotate_teacher}} 
+                        </td>
+                        <td>
+                           
+                        </td>
+                        <td>
+                            {{ annotate.annotate_tax_count|floatformat:2 }}
+                        </td>
+                        <td>
+                            {% comment %} {{ annotate.annotate_deductions|floatformat:2 }} {% endcomment %}
+                        </td>
+                        <td>
+                            {{ annotate.annotate_alimony_count|floatformat:2 }}
+
+                        </td>
+                        <td>
+                            {{ annotate.annotate_net|floatformat:2 }}
+                        </td>
+                        <td>
+                            {% comment %} <a class='btn btn-primary' href="{% url 'wages:show_teachers_grid' teacher_item.pk %}"> Перейти </a> {% endcomment %}
+                        </td>
+                        <td>
+                            {% comment %} <a class='btn btn-success' href="{% url 'wages:wage_recalculate' teacher_item.pk %}"> Пересчитать </a> {% endcomment %}
+                        </td>
+                    {% endif %}
+            </tr>
+            {% endfor %}
+        
+            </tbody>
+        </table>
+    {% else %}
+        <h2>Вам запрещено просматривать данную страницу</h2>
+    {% endif %}
+{% endblock content %}
+    

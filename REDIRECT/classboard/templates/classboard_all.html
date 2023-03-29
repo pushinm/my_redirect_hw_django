@@ -1,0 +1,60 @@
+{% extends 'layout/base.html' %}
+
+
+{% block title %}
+    Классная доска
+{% endblock title %}
+
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row mb-3 mt-3">
+            <div class="col-4">
+                <select class="form-select form-select-lg mb-3" name="group_choice" id="group_choice">
+                    {% for group_item in group %}
+                        <option value="{{ group_item.pk }}">{{ group_item.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4">
+                <select class="form-select form-select-lg mb-3" name="day_choice" id="group_choice">
+                    <option value="">Выбрать день</option>
+                    {% for days_item in days %}
+                        <option value="{{ days_item.0 }}">{{ days_item.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4">
+                <select class="form-select form-select-lg mb-3" name="pair_choice" id="pair_choice">
+                    <option value="">Выбрать пару</option>
+                    {% for pair_item in pair %}
+                        <option value="{{ pair_item.0 }}">{{ pair_item.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-5"><input class="btn btn-info" type="submit" value="Выбрать"/></div>
+        </div>
+
+    </form>
+
+    {% for item in classboard_all %}
+        <div class="col-12">
+            <p>День недели: {{ item.class_day }} </p>
+            <p>Пара: {{ item.class_pair }} </p>
+            <h3>Предмет: {{ item.subject_name }}</h3>
+            <h4>Группа: {{ item.group }}</h4>
+            <p>Преподаватель(ли):
+                {% for item_teacher in item.teacher.all %}
+                    {{ item_teacher }}
+                {% endfor %}
+            </p>
+
+
+            <a class="btn btn-primary" href="{% url 'classboard_view' item.pk %}"> Перейти </a>
+        </div>
+    {% endfor %}
+
+{% endblock content %}
